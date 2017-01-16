@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.activeComponent = 'redish';
+    this.activeComponent = 'winewood';
   }
 
 }

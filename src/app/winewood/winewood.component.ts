@@ -26,75 +26,63 @@ export class WinewoodComponent implements OnInit, OnDestroy {
     this.full_height = this.element.parentElement.parentElement.clientHeight;
     this.width = this.full_width - this.margins['top'] - this.margins['bottom'];
     this.height = this.full_height - this.margins['left'] - this.margins['right'];
-    var h =  this.height/ 4, w =  this.width/ 9;
+    var h =  5, w =  10;
+    var switched = true;
 
-    for (var i=0; i<100;i++){
-      this.dataset.push({'first' : 1, 'second': 5, 'third': 3, 'fourth': 7, 'y' : i});
+    for (let i=1; i<100;i++){
+      for (let j=1;j<125;j++){
+        this.dataset.push({'x' : i, 'y': j,});
+      }
     }
 
     let x = d3.scaleLinear()
-      .domain([0,4])
-      .range([0,this.width]);
+      .domain([0,100])
+      .range([0,2500]);
 
     let y = d3.scaleLinear()
-      .domain([0,3])
-      .range([0,this.height]);
+      .domain([0,100])
+      .range([0,2500]);
 
     d3.select('.winewood').select('svg').remove();
 
     let svg = d3.select('.winewood').append('svg')
-      .attr('height',this.full_height)
-      .attr('width',this.full_width);
+      .attr('height',2500)
+      .attr('width',2500);
 
-    var background = svg.append('rect')
-      .attr('width',this.width)
-      .attr('height',this.height)
+    svg.append('rect')
+      .attr('width',2500)
+      .attr('height',2500)
       .attr('fill','#1B223C');
 
-    var chart = svg.append('g')
-      .attr('transform','translate(' + this.margins['left'] + ',' + this.margins['top'] + ')');
-
-    var elements = chart.selectAll('g')
+    let domino = svg.selectAll('.domino')
       .data(this.dataset).enter()
       .append('g')
-      .attr('class','line')
-      .attr('transform',function(d,i){ return 'translate(' + 0 + ',' + y(d.y)   + ')'});
+        .attr('class','domino')
+        .attr('transform',function(d){ return 'translate(' + x(d.x) + ',' + y(d.y) + ')' })
 
-    elements.append('g')
-      .attr('transform',function(d,i){ return 'translate(' + d.first * w + ',' + 0 + ')'})
-      .append('path')
+    domino.append('path')
       .attr('d','M0 0 L0 ' + h + ' L' + w + ' -' + h +' L' + w + '-' + 2*h + ' Z')
-      .attr('fill','#FD6069');
+      .attr('id',function(d,i){ return i })
+      .attr('fill','#FD6069')
+      .attr('opacity',1)
+      .call(function(d,i) { blink(switched); });
 
-    elements.append('g')
-      .attr('transform',function(d,i){ return 'translate(' + d.second * w + ',' + 0 + ')'})
-      .append('path')
-      .attr('d','M0 0 L0 ' + h + ' L' + w + ' -' + h +' L' + w + '-' + 2*h + ' Z')
-      .attr('fill','#FD6069');
 
-    elements.append('g')
-      .attr('transform',function(d,i){ return 'translate(' + d.third * w + ',' + 0 + ')'})
-      .append('path')
-      .attr('d','M0' + -(2*h) + 'L0 ' + -h + ' L' + w + ' ' + h +' L' + w + ' 0 Z')
-      .attr('fill','#FD6069');
+    function blink(switched){
+      (switched)
+        ? d3.selectAll('.domino path').transition().delay(function(d,i){ return i*.1 }).duration(.5).attr('opacity',1)
+        : d3.selectAll('.domino path').transition().delay(function(d,i){ return i*.1 }).duration(.5).attr('opacity',0);
 
-    elements.append('g')
-      .attr('transform',function(d,i){ return 'translate(' + d.fourth * w + ',' + 0 + ')'})
-      .append('path')
-      .attr('d','M0' + -(2*h) + 'L0 ' + -h + ' L' + w + ' ' + h +' L' + w + ' 0 Z')
-      .attr('fill','#FD6069');
-
-    function update(dy){
-      var transition = svg.selectAll('.chart').transition().duration(5000);
-      transition.attr('transform','translate(0,' + dy + ')');
+      setTimeout(function(){
+        switched = !switched;
+        blink(switched);
+      },1000)
     }
-
-    update(-1000);
   }
 
   ngOnInit() {
     this.redrawOnResize = this.renderer.listenGlobal('window', 'resize', (event) => {
-     this.drawWinewood();
+     //this.drawWinewood();
     });
     this.element =  d3.select('.winewood')._groups[0][0];
     this.drawWinewood();
