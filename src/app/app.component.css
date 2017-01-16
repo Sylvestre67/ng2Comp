@@ -1,0 +1,23 @@
+.comp-selector{
+  position:absolute;
+  top:0;
+  width:100%;
+  background-color:white;
+  padding:.5em;
+}
+.comp-selector > span{
+  margin-right:.5em;
+  cursor:pointer;
+}
+
+.comp-selector > span:last-child{
+  margin-right:.3em;
+}
+
+.comp-selector > span.active{
+  color:red;
+}
+
+.winewood-container{
+
+}

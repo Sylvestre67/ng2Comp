@@ -14,14 +14,12 @@ export class RedishComponent implements OnInit,OnDestroy {
 
   private full_width : number;
   private full_height : number;
-  private margins : Object = {'top' : 0, 'bottom' : 0, 'left' : 0, 'right' : 0 };
+  private margins : Object = {'top' : 0, 'bottom' : -6, 'left' : 0, 'right' : 0 };
   private width : number;
   private height : number;
   private redrawOnResize : Function;
 
-  constructor( private el: ElementRef, private renderer: Renderer) {
-
-  }
+  constructor( private el: ElementRef, private renderer: Renderer ) {}
 
   drawSVG(): void{
     this.full_width = this.element.parentElement.parentElement.clientWidth;
@@ -74,7 +72,7 @@ export class RedishComponent implements OnInit,OnDestroy {
       svg.append('circle')
         .attr('transform','translate(' + x(pos_x) + ',' + y(pos_y) + ')')
         .attr('r',10)
-        .attr('fill','red')
+        .attr('fill','#ff0000')
         .transition().duration(500)
         .attr('r',0)
           .transition().delay(250).duration(3000)

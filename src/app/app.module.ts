@@ -10,11 +10,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { RedishComponent } from './redish/redish.component';
+import { WinewoodComponent } from './winewood/winewood.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RedishComponent
+    RedishComponent,
+    WinewoodComponent
   ],
   imports: [
     BrowserModule,

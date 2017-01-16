@@ -1,5 +1,19 @@
+<div class="comp-selector" fxLayout="row" fxLayoutAlign="end start" *ngIf="activeComponent">
+  <span
+    [ngStyle]="(activeComponent === 'redish') ? {'color' : '#ff0000' } : ''"
+    (click)="updateActiveComponent('redish')">
+    redish
+  </span>
+  <span [ngStyle]="(activeComponent === 'winewood') ? {'color' : '#FD6069' } : ''"
+        (click)="updateActiveComponent('winewood')">
+    winewood
+  </span>
+</div>
+
 <div class="main-content"
+     [ngClass]="(activeComponent === 'winewood') ? 'winewood-container' : ''"
      fxLayout="column"
      fxLayoutAlign="center center">
-  <app-redish></app-redish>
+  <app-redish *ngIf="activeComponent === 'redish'"></app-redish>
+  <app-winewood *ngIf="activeComponent === 'winewood'"></app-winewood>
 </div>
