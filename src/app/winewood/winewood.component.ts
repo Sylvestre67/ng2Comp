@@ -27,7 +27,7 @@ export class WinewoodComponent implements OnInit, OnDestroy {
     this.width = this.full_width - this.margins['top'] - this.margins['bottom'];
     this.height = this.full_height - this.margins['left'] - this.margins['right'];
     var h =  5, w =  10;
-    var switched = true;
+    var switched = true, blinking = false;
 
     for (let i=1; i<100;i++){
       for (let j=1;j<125;j++){
@@ -59,14 +59,16 @@ export class WinewoodComponent implements OnInit, OnDestroy {
       .append('g')
         .attr('class','domino')
         .attr('transform',function(d){ return 'translate(' + x(d.x) + ',' + y(d.y) + ')' })
+        .attr('opacity',1);
 
     domino.append('path')
       .attr('d','M0 0 L0 ' + h + ' L' + w + ' -' + h +' L' + w + '-' + 2*h + ' Z')
       .attr('id',function(d,i){ return i })
-      .attr('fill','#FD6069')
-      .attr('opacity',1)
-      .call(function(d,i) { blink(switched); });
+      .attr('fill','#FD6069');
 
+      //.attr('opacity',1);
+      //.attr('class','blink_me');
+      //.call(function(d,i) { (!blinking) ? (blink(switched), blinking = true) : false; });
 
     function blink(switched){
       (switched)
@@ -89,7 +91,7 @@ export class WinewoodComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.redrawOnResize();
+
   }
 
 }
