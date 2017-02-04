@@ -1,6 +1,10 @@
 <div class="comp-selector" fxLayout="row" fxLayoutAlign="end start"
      [ngStyle]="(activeComponent === 'winewood') ? {'background-color': '#1B223C','color':'white'} : ''"
      *ngIf="activeComponent">
+  <span [ngStyle]="(activeComponent === 'twit') ? {'color' : '#1DA1F2' } : ''"
+        (click)="updateActiveComponent('twit')">
+    twit
+  </span>
   <span
     [ngStyle]="(activeComponent === 'redish') ? {'color' : '#ff0000' } : ''"
     (click)="updateActiveComponent('redish')">
@@ -16,6 +20,7 @@
      [ngClass]="(activeComponent === 'winewood') ? 'winewood-container' : ''"
      fxLayout="column"
      fxLayoutAlign="center center">
-  <app-redish *ngIf="activeComponent === 'redish'"></app-redish>
+  <app-redish   *ngIf="activeComponent === 'redish'"></app-redish>
   <app-winewood *ngIf="activeComponent === 'winewood'"></app-winewood>
+  <app-twit     *ngIf="activeComponent === 'twit'"></app-twit>
 </div>

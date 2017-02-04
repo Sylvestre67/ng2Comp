@@ -1,0 +1,12 @@
+<section *ngIf="media_url">
+  <p *ngIf="media_url" style="text-align:center;">
+    <img style="max-width:80%;
+                height:auto;
+                padding:5px;"
+         [src]="media_url" />
+  </p>
+  <p *ngIf="media_url === ''">
+    <em>No Media in this one</em>
+  </p>
+</section>
+

@@ -10,16 +10,13 @@ module.exports = function(grunt) {
             src: [
               './dist/**', './dist/**/*',
             ],
-            dest: '../../../sites/sylz/',
+            dest: '../',
           },
         ]
       }
     }
   });
-
   grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-copy');
-
   grunt.registerTask('default', ['copy']);
-
 };

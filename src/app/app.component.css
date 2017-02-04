@@ -18,6 +18,6 @@
   color:red;
 }
 
-.winewood-container{
-
+.main-content{
+  overflow: hidden;
 }
